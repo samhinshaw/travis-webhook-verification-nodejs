@@ -1,5 +1,5 @@
-# Start with lightweight base
-FROM node:10.15-alpine
+# Start with lightweight base... but not so small
+FROM node:10.15-stretch-slim
 
 WORKDIR /app/
 
