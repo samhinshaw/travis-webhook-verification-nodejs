@@ -1,7 +1,3 @@
-'use strict';
-
-const got = require('got');
-const crypto = require('crypto');
 const express = require('express');
 const bodyParser = require('body-parser');
 
