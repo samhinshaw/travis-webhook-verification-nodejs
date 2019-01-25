@@ -19,5 +19,5 @@ app.post('/travis', handleTravisRequest);
 // Start up the server
 app.listen(EXPRESS_PORT, () => {
   // eslint-disable-next-line no-console
-  console.log(`Example app listening on port ${EXPRESS_PORT}!`);
+  console.log(`Webhook server listening on port ${EXPRESS_PORT}!`);
 });
