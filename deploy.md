@@ -12,7 +12,13 @@ docker pull samhinshaw/webhookserver:latest # or another tag
 ```
 
 ```sh
-docker run -d --restart=always -p 8025:8025 samhinshaw/webhook-server:1.0.1
+docker run                                     \
+  -d                                           \
+  --restart=always                             \
+  -p 8025:8025                                 \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /home/sam/deploy:/deploy                  \
+  samhinshaw/webhook-server:1.0.1
 ```
 
 ## nginx
