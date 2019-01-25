@@ -7,6 +7,7 @@ const fireWebhook = require('./fire-webhook');
 const { SCRIPT_NAME } = require('./constants');
 
 function handleRequest(req, res) {
+  console.log('Webhook endpoint hit!');
   const travisSignature = Buffer.from(req.headers.signature, 'base64');
   const { payload } = req.body;
   let isRequestVerified = false;
