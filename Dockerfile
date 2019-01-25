@@ -3,6 +3,9 @@ FROM node:10.15-alpine
 
 WORKDIR /app/
 
+# Expose 8025 for our express server
+EXPOSE 8025
+
 # Copy in dependency files
 COPY package.json /app/
 COPY package-lock.json /app/
