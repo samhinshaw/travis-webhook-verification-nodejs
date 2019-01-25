@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const handleTravisRequest = require('./travis/handle-request');
+const handleRequest = require('./travis/handle-request');
 
 const EXPRESS_PORT = 8025;
 
@@ -14,7 +14,7 @@ app.set('trust proxy', 'loopback');
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Set up route for travis posts
-app.post('/travis', handleTravisRequest);
+app.post('/travis', handleRequest);
 
 // Start up the server
 app.listen(EXPRESS_PORT, () => {
