@@ -26,9 +26,12 @@ docker run                                     \
 The nginx config on the host server will need to be updated to proxy connections
 to /hooks to our webhook server.
 
+**Note:** The trailing slash on location and proxy_pass are very important to
+make the base url take!
+
 ```conf
-location /hooks {
-        proxy_pass http://localhost:8025;
+location /hooks/ {
+        proxy_pass http://localhost:8025/;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
