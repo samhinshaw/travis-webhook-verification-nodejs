@@ -7,6 +7,7 @@ const { SCRIPT_NAME } = require('./constants');
 
 function handleRequest(req, res, next) {
   if (!req.body.payload) {
+    console.log(req.body);
     res.sendStatus(400);
     next();
     return;
