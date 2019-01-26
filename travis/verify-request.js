@@ -8,8 +8,6 @@ function verifyTravisRequest(response, payload, signature) {
   console.warn(travisPublicKey);
   const verifier = crypto.createVerify('sha1');
   verifier.update(payload);
-  console.warn('Was signature verified?');
-  console.warn(verifier.verify(travisPublicKey, signature));
   return verifier.verify(travisPublicKey, signature);
 }
 
