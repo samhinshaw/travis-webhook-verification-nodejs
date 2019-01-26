@@ -8,6 +8,14 @@ function checkShouldFireWebHook(payload) {
   //   - repository owner is "samhinshaw"
   //   - repository is "get_fit"
   try {
+    console.warn('Checking whether webhook should fire...');
+    console.warn(
+      payload.branch,
+      payload.tag,
+      payload.status,
+      payload.repository.name,
+      payload.repository.owner_name
+    );
     const isBranchDeployable = payload.branch.startsWith('release/');
     const isTagPresent = !!payload.tag;
 
