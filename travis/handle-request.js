@@ -6,6 +6,12 @@ const fireWebhook = require('./fire-webhook');
 const { SCRIPT_NAME } = require('./constants');
 
 function handleRequest(req, res, next) {
+  if (req.body) {
+    console.log(req.body);
+  } else {
+    console.log(req);
+  }
+
   if (!req.headers.signature || !req.body.payload) {
     console.log('Invalid request sent.');
     res.sendStatus(400);
