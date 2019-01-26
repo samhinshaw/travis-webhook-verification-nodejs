@@ -1,6 +1,6 @@
-const got = require('got');
+// const got = require('got');
 
-const verifyTravisRequest = require('./verify-request');
+// const verifyTravisRequest = require('./verify-request');
 const fireWebhook = require('./fire-webhook');
 
 const { SCRIPT_NAME } = require('./constants');
@@ -15,7 +15,7 @@ function handleRequest(req, res, next) {
   // const travisSignature = Buffer.from(req.headers.signature, 'base64');
   const { payload } = req.body;
 
-  // console.log(payload);
+  console.log(payload);
   // let isRequestVerified = false;
 
   // got('https://api.travis-ci.com/config', {
