@@ -7,16 +7,21 @@ function checkShouldFireWebHook(payload) {
   //   - status & result must be 0 (meaning successful builds)
   //   - repository owner is "samhinshaw"
   //   - repository is "get_fit"
-  const isBranchDeployable = payload.branch.startsWith('release/');
-  const isTagPresent = !!payload.tag;
-  const isCommitDeployable = isBranchDeployable || isTagPresent;
+  try {
+    const isBranchDeployable = payload.branch.startsWith('release/');
+    const isTagPresent = !!payload.tag;
 
-  const isStatusSuccess = payload.status === 0 && payload.result === 0;
-  const isWebhookForGetFit = payload.repository.name === REPO_NAME;
-  const isWebhookMine = payload.repository.owner_name === REPO_OWNER;
-
-  // Make sure ALL conditions are met
-  return isCommitDeployable && isStatusSuccess && isWebhookMine && isWebhookForGetFit;
+    const isCommitDeployable = isBranchDeployable || isTagPresent;
+    const isStatusSuccess = payload.status === 0 && payload.result === 0;
+    const isWebhookForGetFit = payload.repository.name === REPO_NAME;
+    const isWebhookMine = payload.repository.owner_name === REPO_OWNER;
+    // Make sure ALL conditions are met
+    return isCommitDeployable && isStatusSuccess && isWebhookMine && isWebhookForGetFit;
+  } catch (err) {
+    console.error('Error determining whether webhook should fire:');
+    console.error(err);
+    return false;
+  }
 }
 
 module.exports = checkShouldFireWebHook;
