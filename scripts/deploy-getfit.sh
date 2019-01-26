@@ -20,4 +20,4 @@ wget -q $COMPOSE_FILE_URL -O $SERVER_DEPLOY_PATH/docker-compose.yml
 docker pull $REPO_OWNER/$REPO_NAME:$TAG
 
 # boot it up!
-docker-compose -f $SERVER_DEPLOY_PATH/docker-compose.yml up -d
+DOCKER_TAG=$TAG docker-compose -f $SERVER_DEPLOY_PATH/docker-compose.yml up -d
