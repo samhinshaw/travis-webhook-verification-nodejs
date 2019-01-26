@@ -30,6 +30,7 @@ function handleRequest(req, res, next) {
     .then(() => {
       // If our request was verified, fire the webhook!
       if (isRequestVerified) {
+        console.log('Valid request received from Travis.');
         fireWebhook(SCRIPT_NAME, payload)
           .then(stdout => {
             console.log(stdout);
