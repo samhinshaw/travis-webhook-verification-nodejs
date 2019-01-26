@@ -3,5 +3,8 @@ module.exports = {
   plugins: ['prettier'],
   env: {
     node: true
+  },
+  rules: {
+    'no-console': 'off'
   }
 };
