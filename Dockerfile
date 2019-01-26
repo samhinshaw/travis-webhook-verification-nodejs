@@ -8,7 +8,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN \
   # update apt
   apt-get update && \
-  # install build dependencies 
+  # install build dependencies
   apt-get install -yqq apt-transport-https ca-certificates curl gnupg2 software-properties-common && \
   # Add docker gpg key & repo to sources
   curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
@@ -39,5 +39,5 @@ RUN npm ci
 # Copy in app
 COPY ./ /app/
 
-# Start up 
+# Start up
 CMD ["npm", "start"]
