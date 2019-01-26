@@ -17,7 +17,6 @@ docker run                                     \
   --restart=always                             \
   -p 8025:8025                                 \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  -v /usr/bin/docker:/usr/bin/docker           \
   -v /home/sam/deploy:/deploy                  \
   samhinshaw/webhook-server:1.0.15
 ```
@@ -28,9 +27,8 @@ Here we:
 2. Set the restart policy to always restart the container if it crashes
 3. Expose port 8025, where my Express server is listening, and where nginx will proxy requests to `/hooks/` to.
 4. Mount the docker socket
-5. Mount the docker binary
-6. Mount my deploy folder
-7. Run the webhook-server image
+5. Mount my deploy folder
+6. Run the webhook-server image
 
 ## nginx
 
