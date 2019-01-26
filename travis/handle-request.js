@@ -33,10 +33,18 @@ function handleRequest(req, res, next) {
   //     // If our request was verified, fire the webhook!
   //     if (isRequestVerified) {
   fireWebhook(SCRIPT_NAME, payload)
-    .catch(err => console.error(err))
-    .then(stdout => console.log(stdout));
+    .catch(err => {
+      console.error(err);
+      // If there was an error on our end, send 500
+      res.sendStatus(500);
+    })
+    .then(stdout => {
+      console.log(stdout);
+      // If all went well, send 200!
+      res.sendStatus(200);
+    });
   //     }
-  //     res.sendStatus(200);
+  //
   //   });
 }
 
