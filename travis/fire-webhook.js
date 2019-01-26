@@ -17,7 +17,7 @@ function fireWebhook(script, payload) {
 
     const githubBranch = payload.tag ? payload.tag : payload.branch;
 
-    const dockerTag = `githubBranch-${payload.number}`;
+    const dockerTag = `${githubBranch}-${payload.number}`;
 
     const composeFileURL = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${githubBranch}/${REPO_COMPOSE_PATH}`;
 
