@@ -25,12 +25,12 @@ function fireWebhook(script, payload) {
     exec(
       `bash ${script} ${dockerTag} ${composeFileURL} ${SERVER_DEPLOY_PATH} ${REPO_OWNER} ${REPO_NAME}`
     )
-      .catch(err => {
-        reject(err);
-      })
       .then((stdout, stderr) => {
         if (stderr) console.error(`stderr: ${stderr}`);
         resolve(stdout);
+      })
+      .catch(err => {
+        reject(err);
       });
   });
 }
