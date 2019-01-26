@@ -1,14 +1,14 @@
 #! /bin/bash
 
+# exit if any command fails
+set -e
+
 # Be very careful! The order of these arguments is vital
 TAG=$1
 COMPUSE_FILE_URL=$2
 SERVER_DEPLOY_PATH=$3
 REPO_OWNER=$4
 REPO_NAME=$5
-
-# exit if any command fails
-set -e
 
 # Make deploy dir if not already existing
 mkdir -p $DIR 
