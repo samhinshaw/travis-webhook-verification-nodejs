@@ -14,7 +14,7 @@ function handleRequest(req, res, next) {
 
   const travisSignature = Buffer.from(req.headers.signature, 'base64');
   const { payload } = req.body;
-  console.log(JSON.stringify(payload));
+  console.log(payload);
   let isRequestVerified = false;
 
   got('https://api.travis-ci.com/config', {
