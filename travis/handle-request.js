@@ -16,13 +16,13 @@ function handleRequest(req, res, next) {
   }
 
   const travisSignature = Buffer.from(req.headers.signature, 'base64');
-  const { payload } = JSON.parse(req.body);
+  const { payload } = JSON.parse(req.body.payload);
 
   console.warn('Just parsing the payload:');
   console.warn(JSON.parse(req.body.payload));
 
   console.warn('Parsing the entire body:');
-  console.warn(JSON.parse(req.body));
+  // console.warn(JSON.parse(req.body));
 
   let isRequestVerified = false;
 
