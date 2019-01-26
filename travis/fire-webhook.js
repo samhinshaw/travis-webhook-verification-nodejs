@@ -1,11 +1,9 @@
-const { promisify } = require('util');
-const { cbExec } = require('child_process');
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
 
 const checkShouldFireWebHook = require('./check-should-fire-webhook');
 
 const { REPO_OWNER, REPO_NAME, REPO_COMPOSE_PATH, SERVER_DEPLOY_PATH } = require('./constants');
-
-const exec = promisify(cbExec);
 
 function fireWebhook(script, payload) {
   return new Promise((resolve, reject) => {
