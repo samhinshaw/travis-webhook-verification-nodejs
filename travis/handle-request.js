@@ -16,12 +16,8 @@ function handleRequest(req, res, next) {
   }
 
   const travisSignature = Buffer.from(req.headers.signature, 'base64');
-  const { payload } = JSON.parse(req.body.payload);
 
-  console.warn('Just parsing the payload:');
-  console.warn(JSON.parse(req.body.payload));
-
-  console.warn('Parsing the entire body:');
+  // console.warn('Parsing the entire body:');
   // console.warn(JSON.parse(req.body));
 
   let isRequestVerified = false;
@@ -32,15 +28,19 @@ function handleRequest(req, res, next) {
     timeout: 10000
   })
     .then(response => {
-      isRequestVerified = verifyTravisRequest(response, payload, travisSignature);
+      // We have to verify on the unparsed payload to obtain the signing signature
+      isRequestVerified = verifyTravisRequest(response, req.body.payload, travisSignature);
     })
     .catch(error => {
       console.log(`There was an error verifying the webhook:\n${error}`);
     })
     .then(() => {
-      // If our request was verified, fire the webhook!
+      // If our request was verified, parse the payload and fire the webhook!
       if (isRequestVerified) {
         console.log('Valid request received from Travis.');
+        const { payload } = JSON.parse(req.body.payload);
+        console.warn('Just parsing the payload:');
+        console.warn(JSON.parse(req.body.payload));
         fireWebhook(SCRIPT_NAME, payload)
           .then(stdout => {
             console.log(stdout);
