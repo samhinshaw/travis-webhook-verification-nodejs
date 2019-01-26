@@ -1,5 +1,5 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 
 const handleRequest = require('./travis/handle-request');
 
@@ -11,7 +11,9 @@ const app = express();
 app.set('trust proxy', 'loopback');
 
 // Set up the body-parser middleware to parse the Travis POSTed JSON payload
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
+// Try the express.json middleware
+app.use(express.json());
 
 // Set up route for travis posts
 app.post('/travis', handleRequest);
