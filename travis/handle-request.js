@@ -6,7 +6,7 @@ const fireWebhook = require('./fire-webhook');
 const { SCRIPT_NAME } = require('./constants');
 
 function handleRequest(req, res, next) {
-  if (!req.headers.signature || !req.body.payload) {
+  if (!req.body.payload) {
     res.sendStatus(400);
     next();
     return;
@@ -14,7 +14,7 @@ function handleRequest(req, res, next) {
 
   // const travisSignature = Buffer.from(req.headers.signature, 'base64');
   const { payload } = req.body;
-  fireWebhook(SCRIPT_NAME, payload);
+
   // console.log(payload);
   // let isRequestVerified = false;
 
@@ -31,7 +31,9 @@ function handleRequest(req, res, next) {
   //   .then(() => {
   //     // If our request was verified, fire the webhook!
   //     if (isRequestVerified) {
-  //       fireWebhook(SCRIPT_NAME, payload);
+  fireWebhook(SCRIPT_NAME, payload)
+    .catch(err => console.error(err))
+    .then(stdout => console.log(stdout));
   //     }
   //     res.sendStatus(200);
   //   });
