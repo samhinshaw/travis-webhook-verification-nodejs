@@ -1,7 +1,6 @@
 const got = require('got');
 
 const verifyTravisRequest = require('./verify-request');
-const checkShouldFireWebHook = require('./check-should-fire-webhook');
 const fireWebhook = require('./fire-webhook');
 
 const { SCRIPT_NAME } = require('./constants');
@@ -27,12 +26,9 @@ function handleRequest(req, res, next) {
       console.log(`There was an error verifying the webhook:\n${error}`);
     })
     .then(() => {
-      if (isRequestVerified && checkShouldFireWebHook(payload)) {
-        const options = {
-          tag: payload.tag
-        };
-        // Fire our webhook!
-        fireWebhook(SCRIPT_NAME, options);
+      // If our request was verified, fire the webhook!
+      if (isRequestVerified) {
+        fireWebhook(SCRIPT_NAME, payload);
       }
       res.sendStatus(200);
     });
