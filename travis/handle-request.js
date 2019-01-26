@@ -7,6 +7,7 @@ const { SCRIPT_NAME } = require('./constants');
 
 function handleRequest(req, res, next) {
   if (!req.headers.signature || !req.body.payload) {
+    console.log('Invalid request sent.');
     res.sendStatus(400);
     next();
     return;
@@ -24,7 +25,6 @@ function handleRequest(req, res, next) {
       isRequestVerified = verifyTravisRequest(response, payload, travisSignature);
     })
     .catch(error => {
-      // eslint-disable-next-line no-console
       console.log(`There was an error verifying the webhook:\n${error}`);
     })
     .then(() => {
@@ -41,7 +41,12 @@ function handleRequest(req, res, next) {
             // If there was an error on our end, send 500
             res.sendStatus(500);
           });
+      } else {
+        console.log('Request was not verifiable.');
       }
+    })
+    .catch(error => {
+      console.log(`There was an error firing the webhook:\n${error}`);
     });
 }
 
