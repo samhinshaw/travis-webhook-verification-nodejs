@@ -18,6 +18,9 @@ RUN \
   apt-get install -yqq docker-ce && \
   # uninstall build dependencies
   apt-get purge -yqq apt-transport-https ca-certificates curl gnupg2 software-properties-common && \
+  # Next install docker-compose
+  curl -fsSL https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose && \
+  chmod +x /usr/local/bin/docker-compose && \
   apt-get autoremove -yqq
 
 WORKDIR /app/
