@@ -12,34 +12,18 @@ function fireWebhook(script, payload) {
       reject(new Error('This webhook should not be fired.'));
     }
 
-    // Our tag format contains `-XX` at the end, where XX is Travis' build number.
-    // We need to strip this off to get the GitHub branch name. Furthermore, we
-    // need to account for builds triggered off of a branch, not a tag.
+    // Our Docker tag format contains `-XX` at the end (where XX is Travis' build number).
+    // We need to add this to the GitHub branch name or tag.
 
-    let githubBranch;
+    const githubBranch = payload.tag ? payload.tag : payload.branch;
 
-    try {
-      // For branches, this is relatively straightforward--we'll just pull the
-      // branch from the payload.
-      if (!payload.tag) {
-        githubBranch = payload.branch;
-      } else {
-        // But for tags, we'll have to strip the -XX off of the tag.
-        const lastDash = payload.tag.lastIndexOf('-');
-        githubBranch = payload.tag.substring(0, lastDash);
-      }
-    } catch (err) {
-      console.error('Error getting branch name.');
-      reject(err);
-    }
+    const dockerTag = `githubBranch-${payload.number}`;
 
     const composeFileURL = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${githubBranch}/${REPO_COMPOSE_PATH}`;
 
     // Be very careful! The order of these arguments is vital
     exec(
-      `bash ${script} ${
-        payload.tag
-      } ${composeFileURL} ${SERVER_DEPLOY_PATH} ${REPO_OWNER} ${REPO_NAME}`
+      `bash ${script} ${dockerTag} ${composeFileURL} ${SERVER_DEPLOY_PATH} ${REPO_OWNER} ${REPO_NAME}`
     )
       .catch(err => {
         reject(err);
