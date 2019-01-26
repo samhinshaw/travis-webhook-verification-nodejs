@@ -1,6 +1,9 @@
 # Start with lightweight base... but not so small
 FROM node:10.15-stretch-slim
 
+RUN apt-get update && \
+  apt-get install -yq docker-ce libltdl7
+
 WORKDIR /app/
 
 # Expose 8025 for our express server
