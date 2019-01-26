@@ -10,9 +10,23 @@ function fireWebhook(script, payload) {
     return;
   }
 
-  const composeFileURL = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${
-    payload.tag
-  }/${REPO_COMPOSE_PATH}`;
+  // Our tag format contains `-XX` at the end, where XX is Travis' build number.
+  // We need to strip this off to get the GitHub branch name. Furthermore, we
+  // need to account for builds triggered off of a branch, not a tag.
+
+  let githubBranch;
+
+  // For branches, this is relatively straightforward--we'll just pull the
+  // branch from the payload.
+  if (!payload.tag) {
+    githubBranch = payload.branch;
+  } else {
+    // But for tags, we'll have to strip the -XX off of the tag.
+    const lastDash = payload.tag.lastIndexOf('-');
+    githubBranch = payload.tag.substring(0, lastDash);
+  }
+
+  const composeFileURL = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${githubBranch}/${REPO_COMPOSE_PATH}`;
 
   // Be very careful! The order of these arguments is vital
   exec(
