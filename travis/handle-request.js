@@ -38,8 +38,6 @@ function handleRequest(req, res, next) {
         const { payload } = JSON.parse(req.body.payload);
         console.warn('Just parsing the payload:');
         console.warn(JSON.parse(req.body.payload));
-        console.warn('Parsing the entire body:');
-        console.warn(JSON.parse(req.body));
         fireWebhook(SCRIPT_NAME, payload)
           .then(stdout => {
             console.log(stdout);
