@@ -14,7 +14,7 @@ function handleRequest(req, res, next) {
   }
 
   const travisSignature = Buffer.from(req.headers.signature, 'base64');
-  const payload = JSON.parse(req.body.payload);
+  const { payload } = JSON.parse(req.body);
 
   let isRequestVerified = false;
 
