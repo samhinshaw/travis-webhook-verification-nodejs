@@ -29,7 +29,8 @@ function handleRequest(req, res, next) {
       isRequestVerified = verifyTravisRequest(response, req.body.payload, travisSignature);
     })
     .catch(error => {
-      console.log(`There was an error verifying the webhook:\n${error}`);
+      console.log('There was an error verifying the webhook:');
+      console.error(error);
     })
     .then(() => {
       // If our request was verified, parse the payload and fire the webhook!
@@ -54,7 +55,8 @@ function handleRequest(req, res, next) {
       }
     })
     .catch(error => {
-      console.log(`There was an error firing the webhook:\n${error}`);
+      console.log('There was an error firing the webhook:');
+      console.error(error);
     });
 }
 
