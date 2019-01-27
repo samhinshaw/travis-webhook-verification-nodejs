@@ -36,7 +36,7 @@ function handleRequest(req, res, next) {
       // If our request was verified, parse the payload and fire the webhook!
       if (isRequestVerified) {
         console.log('Valid request received from Travis.');
-        const { payload } = JSON.parse(req.body.payload);
+        const payload = JSON.parse(req.body.payload);
         console.warn('Just parsing the payload:');
         console.warn(JSON.parse(req.body.payload));
         fireWebhook(SCRIPT_NAME, payload)
