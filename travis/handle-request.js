@@ -40,12 +40,20 @@ function handleRequest(req, res, next) {
         console.warn('Just parsing the payload:');
         console.warn(JSON.parse(req.body.payload));
         fireWebhook(SCRIPT_NAME, payload)
-          .then(stdout => {
-            console.log(stdout);
+          .then(scriptOutput => {
+            if (scriptOutput.stdout) {
+              console.log('Script output:');
+              console.log(scriptOutput.stdout);
+            }
+            if (scriptOutput.sterr) {
+              console.log('Script error:');
+              console.log(scriptOutput.sterr);
+            }
             // If all went well, send 200!
             res.sendStatus(200);
           })
           .catch(err => {
+            console.error('Error executing script:');
             console.error(err);
             // If there was an error on our end, send 500
             res.sendStatus(500);

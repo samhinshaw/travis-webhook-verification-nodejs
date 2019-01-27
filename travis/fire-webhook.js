@@ -1,5 +1,4 @@
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
+const { exec } = require('child_process');
 
 const checkShouldFireWebHook = require('./check-should-fire-webhook');
 
@@ -45,15 +44,12 @@ function fireWebhook(script, payload) {
 
     // Be very careful! The order of these arguments is vital
     exec(
-      `bash ${script} ${dockerTag} ${composeFileURL} ${SERVER_DEPLOY_PATH} ${REPO_OWNER} ${REPO_NAME}`
-    )
-      .then((stdout, stderr) => {
-        if (stderr) console.error(`stderr: ${stderr}`);
-        resolve(stdout);
-      })
-      .catch(err => {
-        reject(err);
-      });
+      `bash ${script} ${dockerTag} ${composeFileURL} ${SERVER_DEPLOY_PATH} ${REPO_OWNER} ${REPO_NAME}`,
+      (error, stdout, stderr) => {
+        if (error) reject(error);
+        resolve({ stdout, stderr });
+      }
+    );
   });
 }
 
