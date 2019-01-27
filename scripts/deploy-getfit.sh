@@ -36,3 +36,6 @@ fi
 
 # boot it up!
 DOCKER_TAG=$TAG docker-compose -f $SERVER_DEPLOY_PATH/docker-compose.yml up -d
+
+# print status to show that UP was successful!
+DOCKER_TAG=$TAG docker-compose -f $SERVER_DEPLOY_PATH/docker-compose.yml ps
