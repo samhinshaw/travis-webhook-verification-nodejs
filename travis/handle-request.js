@@ -8,8 +8,6 @@ const { SCRIPT_NAME } = require('./constants');
 function handleRequest(req, res, next) {
   if (!req.headers.signature || !req.body.payload) {
     console.log('Request missing signature or payload.');
-    console.warn(req.body.payload);
-    console.warn(req.headers.signature);
     res.sendStatus(400);
     next();
     return;
@@ -19,7 +17,7 @@ function handleRequest(req, res, next) {
 
   let isRequestVerified = false;
 
-  console.warn('Verifying request...');
+  console.log('Verifying request...');
 
   got('https://api.travis-ci.com/config', {
     timeout: 10000
@@ -37,8 +35,6 @@ function handleRequest(req, res, next) {
       if (isRequestVerified) {
         console.log('Valid request received from Travis.');
         const payload = JSON.parse(req.body.payload);
-        console.warn('Just parsing the payload:');
-        console.warn(JSON.parse(req.body.payload));
         fireWebhook(SCRIPT_NAME, payload)
           .then(scriptOutput => {
             if (scriptOutput.stdout) {

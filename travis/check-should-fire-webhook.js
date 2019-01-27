@@ -8,19 +8,6 @@ function checkShouldFireWebHook(payload) {
   //   - repository owner is "samhinshaw"
   //   - repository is "get_fit"
   try {
-    console.warn('Checking whether webhook should fire...');
-    console.warn('Here is the payload I got passed:');
-    console.warn(payload);
-    console.warn('Now here are the values of the key properties of interest:');
-    console.warn(
-      payload.branch ? payload.branch : 'branch is undefined',
-      payload.tag ? payload.tag : 'tag is undefined',
-      payload.status ? payload.status : 'status is undefined',
-      payload.repository.name ? payload.repository.name : 'repository.name is undefined',
-      payload.repository.owner_name
-        ? payload.repository.owner_name
-        : 'repository.owner_name is undefined'
-    );
     const isBranchDeployable = payload.branch.startsWith('release/');
     const isTagPresent = !!payload.tag;
 

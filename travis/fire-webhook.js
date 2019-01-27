@@ -38,10 +38,6 @@ function fireWebhook(script, payload) {
 
     const composeFileURL = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${githubBranch}/${REPO_COMPOSE_PATH}`;
 
-    console.warn(`Github branch is: ${githubBranch}`);
-    console.warn(`Docker tag is: ${dockerTag}`);
-    console.warn(`Compose file URL is: ${composeFileURL}`);
-
     // Be very careful! The order of these arguments is vital
     exec(
       `bash ${script} ${dockerTag} ${composeFileURL} ${SERVER_DEPLOY_PATH} ${REPO_OWNER} ${REPO_NAME}`,
