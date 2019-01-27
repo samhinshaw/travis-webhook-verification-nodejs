@@ -19,9 +19,9 @@ RUN \
   # Next install docker-compose
   curl -fsSL https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose && \
   chmod +x /usr/local/bin/docker-compose && \
-  # uninstall build dependencies EXCEPT ca-certificates, which is needed to pull
-  # our docker-compose file from the github https url
-  apt-get purge -yqq apt-transport-https curl gnupg2 software-properties-common && \
+  # uninstall build dependencies EXCEPT ca-certificates & curl, which are needed
+  # to pull our docker-compose file from the github https url
+  apt-get purge -yqq apt-transport-https gnupg2 software-properties-common && \
   apt-get autoremove -yqq
 
 WORKDIR /app/

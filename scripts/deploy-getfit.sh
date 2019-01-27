@@ -22,7 +22,8 @@ if [ -f $SERVER_DEPLOY_PATH/docker-compose.yml ]; then
 fi
 
 # Get the correct docker compose file
-wget -q $COMPOSE_FILE_URL -O $SERVER_DEPLOY_PATH/docker-compose.yml
+# wget -q $COMPOSE_FILE_URL -O $SERVER_DEPLOY_PATH/docker-compose.yml
+curl -fsSL $COMPOSE_FILE_URL > $SERVER_DEPLOY_PATH/docker-compose.yml
 
 # Pull down the tagged image
 docker pull $REPO_OWNER/$REPO_NAME:$TAG
