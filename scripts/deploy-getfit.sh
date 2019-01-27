@@ -26,7 +26,8 @@ fi
 curl -fsSL $COMPOSE_FILE_URL > $SERVER_DEPLOY_PATH/docker-compose.yml
 
 # Pull down the tagged image
-docker pull $REPO_OWNER/$REPO_NAME:$TAG
+# send the stdout to /dev/null, but keep stderr going to console
+docker pull $REPO_OWNER/$REPO_NAME:$TAG > /dev/null
 
 # If we haven't already downed the currently-running containers, do so now
 if [ "$CONTAINERS_DOWNED" = false ]; then
