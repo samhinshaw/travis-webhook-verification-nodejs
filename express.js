@@ -1,14 +1,14 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require(`express`);
+const bodyParser = require(`body-parser`);
 
-const handleRequest = require('./travis/handle-request');
+const handleRequest = require(`./travis/handle-request`);
 
 const EXPRESS_PORT = 8025;
 
 const app = express();
 
 // Let Express know it's behind a nginx proxy
-app.set('trust proxy', 'loopback');
+app.set(`trust proxy`, `loopback`);
 
 // Set up the body-parser middleware to parse the Travis POSTed JSON payload
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(express.json());
 
 // Set up route for travis posts
-app.post('/travis', handleRequest);
+app.post(`/travis`, handleRequest);
 
 // Start up the server
 app.listen(EXPRESS_PORT, () => {

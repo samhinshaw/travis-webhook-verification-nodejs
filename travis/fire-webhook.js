@@ -1,14 +1,14 @@
-const { exec } = require('child_process');
+const { exec } = require(`child_process`);
 
-const checkShouldFireWebHook = require('./check-should-fire-webhook');
+const checkShouldFireWebHook = require(`./check-should-fire-webhook`);
 
-const { REPO_OWNER, REPO_NAME, REPO_COMPOSE_PATH, SERVER_DEPLOY_PATH } = require('./constants');
+const { REPO_OWNER, REPO_NAME, REPO_COMPOSE_PATH, SERVER_DEPLOY_PATH } = require(`./constants`);
 
 function fireWebhook(script, payload) {
   return new Promise((resolve, reject) => {
     // Check whether we should fire
     if (!checkShouldFireWebHook(payload)) {
-      reject(new Error('This webhook should not be fired.'));
+      reject(new Error(`This webhook should not be fired.`));
     }
 
     // Our Docker tag format contains `-XX` at the end (where XX is Travis' build number).
@@ -28,7 +28,7 @@ function fireWebhook(script, payload) {
         // Awesomely, this works when a '/' isn't present either, as indexOf
         // returns -1 if the specified character isn't present, meaning we
         // substring from (-1 + 1 = 0) to the end of the string!
-        const cutBranch = payload.branch.substring(payload.branch.indexOf('/') + 1);
+        const cutBranch = payload.branch.substring(payload.branch.indexOf(`/`) + 1);
         // then construct the docker tag
         dockerTag = `${cutBranch}-${payload.number}`;
       }

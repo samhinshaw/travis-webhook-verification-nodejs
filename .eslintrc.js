@@ -1,10 +1,11 @@
 module.exports = {
-  extends: ['airbnb-base', 'prettier'],
-  plugins: ['prettier'],
+  extends: ["airbnb-base", "prettier"],
+  plugins: ["prettier"],
   env: {
     node: true
   },
   rules: {
-    'no-console': 'off'
+    "no-console": "off",
+    quotes: ["error", "backtick"]
   }
 };

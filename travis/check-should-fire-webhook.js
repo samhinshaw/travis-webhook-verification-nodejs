@@ -1,4 +1,4 @@
-const { REPO_NAME, REPO_OWNER } = require('./constants');
+const { REPO_NAME, REPO_OWNER } = require(`./constants`);
 
 function checkShouldFireWebHook(payload) {
   //   All of the following must be true:
@@ -8,7 +8,7 @@ function checkShouldFireWebHook(payload) {
   //   - repository owner is "samhinshaw"
   //   - repository is "get_fit"
   try {
-    const isBranchDeployable = payload.branch.startsWith('release/');
+    const isBranchDeployable = payload.branch.startsWith(`release/`);
     const isTagPresent = !!payload.tag;
 
     const isCommitDeployable = isBranchDeployable || isTagPresent;
@@ -18,7 +18,7 @@ function checkShouldFireWebHook(payload) {
     // Make sure ALL conditions are met
     return isCommitDeployable && isStatusSuccess && isWebhookMine && isWebhookForGetFit;
   } catch (err) {
-    console.error('Error determining whether webhook should fire:');
+    console.error(`Error determining whether webhook should fire:`);
     console.error(err);
     return false;
   }
