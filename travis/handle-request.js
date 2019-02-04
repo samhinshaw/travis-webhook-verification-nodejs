@@ -6,6 +6,14 @@ const fireWebhook = require('./fire-webhook');
 const { SCRIPT_NAME } = require('./constants');
 
 function handleRequest(req, res, next) {
+  // Timestamp the request
+  const timestamp = new Date();
+  const humanReadableTimestamp = timestamp.toLocaleString(`en-US`, {
+    timeZone: `America/Vancouver`
+  });
+
+  console.log(`Request received at ${humanReadableTimestamp}`);
+
   if (!req.headers.signature || !req.body.payload) {
     console.log('Request missing signature or payload.');
     res.sendStatus(400);
