@@ -8,7 +8,7 @@ function checkShouldFireWebHook(payload) {
   //   - repository owner is "samhinshaw"
   //   - repository is "get_fit"
   try {
-    const isBranchDeployable = payload.branch.startsWith(`release/`) || payload.branch === `master`;
+    const isBranchDeployable = payload.branch.startsWith(`release/`);
     const isTagPresent = !!payload.tag;
 
     const isCommitDeployable = isBranchDeployable || isTagPresent;
