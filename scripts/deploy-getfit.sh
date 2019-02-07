@@ -23,7 +23,8 @@ fi
 
 # Get the correct docker compose file
 # wget -q $COMPOSE_FILE_URL -O $SERVER_DEPLOY_PATH/docker-compose.yml
-curl -fsSL $COMPOSE_FILE_URL > $SERVER_DEPLOY_PATH/docker-compose.yml
+# curl -fsSL $COMPOSE_FILE_URL > $SERVER_DEPLOY_PATH/docker-compose.yml
+curl -vL $COMPOSE_FILE_URL > $SERVER_DEPLOY_PATH/docker-compose.yml
 
 # Pull down the tagged image
 # send the stdout to /dev/null, but keep stderr going to console
