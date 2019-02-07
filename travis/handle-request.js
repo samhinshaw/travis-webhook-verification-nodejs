@@ -3,16 +3,16 @@ const got = require(`got`);
 const verifyTravisRequest = require(`./verify-request`);
 const fireWebhook = require(`./fire-webhook`);
 
-const { SCRIPT_NAME } = require(`./constants`);
+const { SCRIPT_NAME, TIMEZONE } = require(`./constants`);
 
 function handleRequest(req, res, next) {
   // Timestamp the request
   const timestamp = new Date();
   const humanReadableTimestamp = timestamp.toLocaleString(`en-US`, {
-    timeZone: `America/Vancouver`
+    timeZone: TIMEZONE
   });
 
-  console.log(`Request received at ${humanReadableTimestamp}`);
+  console.log(`Request received at ${humanReadableTimestamp} (TZ: ${TIMEZONE})`);
 
   if (!req.headers.signature || !req.body.payload) {
     console.log(`Request missing signature or payload.`);
