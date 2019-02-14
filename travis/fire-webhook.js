@@ -8,7 +8,9 @@ function fireWebhook(script, payload) {
   return new Promise((resolve, reject) => {
     // Check whether we should fire
     if (!checkShouldFireWebHook(payload)) {
-      reject(new Error(`This webhook should not be fired.`));
+      resolve({
+        failure: `This webhook should not be fired.\nBranch: ${payload.branch}\nTag: ${payload.tag}`
+      });
     }
 
     // Our Docker tag format contains `-XX` at the end (where XX is Travis' build number).

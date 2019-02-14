@@ -44,14 +44,17 @@ function handleRequest(req, res, next) {
         console.log(`Valid request received from Travis.`);
         const payload = JSON.parse(req.body.payload);
         fireWebhook(SCRIPT_NAME, payload)
-          .then(scriptOutput => {
-            if (scriptOutput.stdout) {
-              console.log(`Script output:`);
-              console.log(scriptOutput.stdout);
+          .then(result => {
+            if (result.failure) {
+              console.log(result.failure);
             }
-            if (scriptOutput.sterr) {
+            if (result.stdout) {
+              console.log(`Script output:`);
+              console.log(result.stdout);
+            }
+            if (result.sterr) {
               console.log(`Script error:`);
-              console.log(scriptOutput.sterr);
+              console.log(result.sterr);
             }
             // If all went well, send 200!
             res.sendStatus(200);
